@@ -717,7 +717,7 @@
 
                 <div class="share-buttons">
                     <button class="share-btn kakao-btn" onclick="shareKakao()">
-                        💬 카카오톡으로 공유하기
+                        💬 친구에게 공유하고 궁합 확인하기
                     </button>
                     <button class="share-btn copy-btn" onclick="copyLink()">
                         🔗 링크 복사하기
@@ -758,6 +758,7 @@
                     <div class="compat-label">${c.label}</div>
                     <p class="compat-detail">${t.emoji} ${t.name} × ${sharedTypeData.emoji} ${sharedTypeData.name}<br><br>${c.text}</p>
                     <button class="compat-share-btn" onclick="shareCompat('${sharedTypeData.id}')">💬 이 궁합 카톡으로 공유</button>
+                    <p style="color:#FFD700;font-size:14px;margin-top:16px;text-align:center;">⬇️ 다른 친구에게도 공유해서 궁합 확인해봐!</p>
                 `;
                 // 공유 버튼 앞에 삽입
                 const shareButtons = el.querySelector('.share-buttons');
