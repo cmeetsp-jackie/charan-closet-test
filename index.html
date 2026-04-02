@@ -599,6 +599,16 @@
         let scores = [0, 0, 0]; // asset, sleeping, clean
         let history = []; // 이전 답변 기록
 
+        // 공유 링크로 들어왔을 때 상대 유형 저장
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedType = urlParams.get('r');
+        const sharedTypeData = sharedType ? types.find(t => t.id === sharedType) : null;
+
+        if (sharedTypeData) {
+            const introP = document.querySelector('.intro p');
+            introP.innerHTML = `<strong>${sharedTypeData.emoji} "${sharedTypeData.name}"</strong> 이 사람과 잘 맞을까?<br>테스트하고 궁합까지 바로 확인! 💕`;
+        }
+
         function startQuiz() {
             document.getElementById('intro').classList.add('hidden');
             document.getElementById('quiz').classList.remove('hidden');
@@ -734,24 +744,40 @@
             // Update OG dynamically for share
             window._resultType = t;
             document.getElementById('matchPageLink').href = 'https://tinyurl.com/otBTImatch';
+
+            // 공유 링크로 들어왔으면 궁합 자동 표시
+            if (sharedTypeData) {
+                const c = getCompat(t.id, sharedTypeData.id);
+                const autoCompat = document.createElement('div');
+                autoCompat.className = 'compat-result-box';
+                autoCompat.style.display = 'block';
+                autoCompat.style.marginTop = '24px';
+                autoCompat.innerHTML = `
+                    <div style="font-size:14px;color:#888;margin-bottom:8px;">공유한 사람과의 궁합</div>
+                    <div class="compat-score ${c.cls}">${c.score}%</div>
+                    <div class="compat-label">${c.label}</div>
+                    <p class="compat-detail">${t.emoji} ${t.name} × ${sharedTypeData.emoji} ${sharedTypeData.name}<br><br>${c.text}</p>
+                    <button class="compat-share-btn" onclick="shareCompat('${sharedTypeData.id}')">💬 이 궁합 카톡으로 공유</button>
+                `;
+                // 공유 버튼 앞에 삽입
+                const shareButtons = el.querySelector('.share-buttons');
+                shareButtons.parentNode.insertBefore(autoCompat, shareButtons);
+            }
         }
 
         function shareKakao() {
             const t = window._resultType;
-            const text = `내 옷장 추정 자산: ${t.asset} 💰\n나는 "${t.name}" 이래ㅋㅋ 너는?\n\n테스트: https://tinyurl.com/otBTI\n궁합보기: https://tinyurl.com/otBTImatch`;
-            const url = 'https://tinyurl.com/otBTI';
+            const shareUrl = `https://cmeetsp-jackie.github.io/charan-closet-test/?r=${t.id}`;
+            const text = `내 옷장 추정 자산: ${t.asset} 💰\n나는 "${t.name}" 이래ㅋㅋ\n너도 해보고 우리 궁합 확인해봐!`;
 
-            // Try Kakao SDK first, fallback to native share
             if (navigator.share) {
                 navigator.share({
-                    title: '내 옷장 자산 테스트 💰',
+                    title: '옷BTI 테스트 💕',
                     text: text,
-                    url: url
+                    url: shareUrl
                 }).catch(() => {});
             } else {
-                // Fallback: copy to clipboard
-                const fullText = text + url;
-                navigator.clipboard.writeText(fullText).then(() => {
+                navigator.clipboard.writeText(text + '\n' + shareUrl).then(() => {
                     alert('공유 텍스트가 복사되었습니다!\n카카오톡에 붙여넣기 하세요 💬');
                 });
             }
@@ -759,7 +785,9 @@
 
         function copyLink() {
             const t = window._resultType;
-            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" 이래ㅋㅋ 너는?\n\n테스트: https://tinyurl.com/otBTI\n궁합보기: https://tinyurl.com/otBTImatch`;
+            const t = window._resultType;
+            const shareUrl = `https://cmeetsp-jackie.github.io/charan-closet-test/?r=${t.id}`;
+            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" 이래ㅋㅋ\n너도 해보고 우리 궁합 확인해봐!\n${shareUrl}`;
             navigator.clipboard.writeText(text).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 btn.textContent = '✅ 복사 완료!';
