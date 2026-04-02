@@ -6,8 +6,8 @@
     <title>나의 옷BTI 테스트 👗</title>
     <meta property="og:title" content="옷장으로 알아보는 나의 옷BTI는? 👗">
     <meta property="og:description" content="127만명이 참여한 테스트! 친구/애인과 같이 산다면 잘 맞는 성향인지 옷BTI로 미리 알아보기 💕">
-    <meta property="og:image" content="https://cmeetsp-jackie.github.io/charan-closet-test/og-thumb.png">
-    <meta property="og:url" content="https://cmeetsp-jackie.github.io/charan-closet-test/">
+    <meta property="og:image" content="https://tinyurl.com/otBTIog-thumb.png">
+    <meta property="og:url" content="https://tinyurl.com/otBTI">
     <meta name="twitter:card" content="summary_large_image">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0STZK1YFH6"></script>
@@ -850,9 +850,9 @@
             const myType = window._resultType;
             const other = types.find(t => t.id === otherId);
             const c = getCompat(myType.id, otherId);
-            const text = `옷장 궁합 ${c.score}%! ${c.label}\n나: ${myType.emoji} ${myType.name}\n상대: ${other.emoji} ${other.name}\n\n너도 해봐!\nhttps://cmeetsp-jackie.github.io/charan-closet-test/`;
+            const text = `옷장 궁합 ${c.score}%! ${c.label}\n나: ${myType.emoji} ${myType.name}\n상대: ${other.emoji} ${other.name}\n\n너도 해봐!\nhttps://tinyurl.com/otBTI`;
             if (navigator.share) {
-                navigator.share({ title: '옷장 궁합 테스트', text: text, url: 'https://cmeetsp-jackie.github.io/charan-closet-test/' }).catch(() => {});
+                navigator.share({ title: '옷장 궁합 테스트', text: text, url: 'https://tinyurl.com/otBTI' }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(text).then(() => alert('복사 완료! 카톡에 붙여넣기 💬'));
             }
