@@ -103,7 +103,19 @@
 
         /* Question */
         .question-screen { animation: slideIn 0.4s ease; }
-        .q-number { color: #FFD700; font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+        .q-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .q-number { color: #FFD700; font-size: 14px; font-weight: 700; }
+        .back-btn {
+            background: none;
+            border: 1px solid #444;
+            color: #888;
+            padding: 6px 14px;
+            font-size: 13px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .back-btn:hover { border-color: #FFD700; color: #FFD700; }
         .q-text { font-size: 22px; font-weight: 900; margin-bottom: 12px; line-height: 1.4; }
         .q-sub { font-size: 14px; color: #888; margin-bottom: 28px; }
         .options { display: flex; flex-direction: column; gap: 12px; }
@@ -319,7 +331,10 @@
         <!-- QUIZ -->
         <div id="quiz" class="question-screen hidden">
             <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
-            <div class="q-number" id="qNum"></div>
+            <div class="q-header">
+                <div class="q-number" id="qNum"></div>
+                <button class="back-btn" id="backBtn" onclick="goBack()">← 이전</button>
+            </div>
             <div class="q-text" id="qText"></div>
             <div class="q-sub" id="qSub"></div>
             <div class="options" id="options"></div>
@@ -584,6 +599,7 @@
 
         let current = 0;
         let scores = [0, 0, 0]; // asset, sleeping, clean
+        let history = []; // 이전 답변 기록
 
         function startQuiz() {
             document.getElementById('intro').classList.add('hidden');
@@ -595,6 +611,7 @@
             const q = questions[current];
             document.getElementById('progress').style.width = ((current / questions.length) * 100) + '%';
             document.getElementById('qNum').textContent = `Q${current + 1} / ${questions.length}`;
+            document.getElementById('backBtn').style.display = current === 0 ? 'none' : 'block';
             document.getElementById('qText').textContent = q.q;
             document.getElementById('qSub').textContent = q.sub || '';
 
@@ -615,8 +632,20 @@
             quiz.style.animation = 'slideIn 0.4s ease';
         }
 
+        function goBack() {
+            if (current > 0) {
+                const prev = history.pop();
+                scores[0] -= prev.s[0];
+                scores[1] -= prev.s[1];
+                scores[2] -= prev.s[2];
+                current--;
+                showQuestion();
+            }
+        }
+
         function selectOption(idx) {
             const opt = questions[current].opts[idx];
+            history.push({ s: [...opt.s] });
             scores[0] += opt.s[0];
             scores[1] += opt.s[1];
             scores[2] += opt.s[2];
@@ -834,6 +863,7 @@
         function retry() {
             current = 0;
             scores = [0, 0, 0];
+            history = [];
             document.getElementById('result').classList.add('hidden');
             document.getElementById('result').innerHTML = '';
             document.getElementById('intro').classList.remove('hidden');
