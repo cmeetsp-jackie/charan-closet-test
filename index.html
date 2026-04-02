@@ -736,7 +736,7 @@
 
         function shareKakao() {
             const t = window._resultType;
-            const text = `내 옷장 추정 자산: ${t.asset} 💰\n나는 "${t.name}" (${t.mbti}) 이래ㅋㅋ 너는?\n\n`;
+            const text = `내 옷장 추정 자산: ${t.asset} 💰\n나는 "${t.name}" 이래ㅋㅋ 너는?\n`;
             const url = 'https://mineis-jj.github.io/charan-closet-test/';
 
             // Try Kakao SDK first, fallback to native share
@@ -757,7 +757,7 @@
 
         function copyLink() {
             const t = window._resultType;
-            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" (${t.mbti})ㅋㅋ 너는?\nhttps://cmeetsp-jackie.github.io/charan-closet-test/`;
+            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" 이래ㅋㅋ 너는?\nhttps://bit.ly/otBTI`;
             navigator.clipboard.writeText(text).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 btn.textContent = '✅ 복사 완료!';
