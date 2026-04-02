@@ -600,8 +600,9 @@
         let history = []; // 이전 답변 기록
 
         // 공유 링크로 들어왔을 때 상대 유형 저장
+        // ?r= 또는 #유형 둘 다 지원
         const urlParams = new URLSearchParams(window.location.search);
-        const sharedType = urlParams.get('r');
+        const sharedType = urlParams.get('r') || (window.location.hash ? window.location.hash.substring(1) : null);
         const sharedTypeData = sharedType ? types.find(t => t.id === sharedType) : null;
 
         if (sharedTypeData) {
@@ -768,7 +769,7 @@
 
         function shareKakao() {
             const t = window._resultType;
-            const shareUrl = `https://tinyurl.com/otBTI`;
+            const shareUrl = `https://tinyurl.com/otBTI#${t.id}`;
             const text = `내 옷장 추정 자산: ${t.asset} 💰\n나는 "${t.name}" 이래ㅋㅋ\n너도 해보고 우리 궁합 확인해봐!\n${shareUrl}`;
 
             if (navigator.share) {
@@ -785,7 +786,7 @@
 
         function copyLink() {
             const t = window._resultType;
-            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" 이래ㅋㅋ\n너도 해보고 우리 궁합 확인해봐!\nhttps://tinyurl.com/otBTI`;
+            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" 이래ㅋㅋ\n너도 해보고 우리 궁합 확인해봐!\nhttps://tinyurl.com/otBTI#${t.id}`;
             navigator.clipboard.writeText(text).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 btn.textContent = '✅ 복사 완료!';
