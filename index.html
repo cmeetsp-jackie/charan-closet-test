@@ -9,6 +9,14 @@
     <meta property="og:image" content="https://cmeetsp-jackie.github.io/charan-closet-test/og-image.png">
     <meta property="og:url" content="https://cmeetsp-jackie.github.io/charan-closet-test/">
     <meta name="twitter:card" content="summary_large_image">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -605,9 +613,7 @@
                     <div id="compat-result" class="compat-result-box" style="display:none;"></div>
                 </div>
 
-                <a href="https://charan.kr" target="_blank" class="charan-cta">
-                    👗 차란에서 안 입는 옷 팔기 →
-                </a>
+
 
                 <button class="retry-btn" onclick="retry()">🔄 다시 테스트하기</button>
 
