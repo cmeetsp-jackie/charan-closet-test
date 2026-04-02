@@ -738,7 +738,7 @@
 
         function shareKakao() {
             const t = window._resultType;
-            const text = `내 옷장 추정 자산: ${t.asset} 💰\n나는 "${t.name}" 이래ㅋㅋ 너는?\n`;
+            const text = `내 옷장 추정 자산: ${t.asset} 💰\n나는 "${t.name}" 이래ㅋㅋ 너는?\n\n테스트: https://tinyurl.com/otBTI\n궁합보기: https://tinyurl.com/otBTImatch`;
             const url = 'https://tinyurl.com/otBTI';
 
             // Try Kakao SDK first, fallback to native share
@@ -759,7 +759,7 @@
 
         function copyLink() {
             const t = window._resultType;
-            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" 이래ㅋㅋ 너는?\nhttps://tinyurl.com/otBTI`;
+            const text = `내 옷장 추정 자산: ${t.asset} 💰 나는 "${t.name}" 이래ㅋㅋ 너는?\n\n테스트: https://tinyurl.com/otBTI\n궁합보기: https://tinyurl.com/otBTImatch`;
             navigator.clipboard.writeText(text).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 btn.textContent = '✅ 복사 완료!';
